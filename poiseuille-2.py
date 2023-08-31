@@ -233,19 +233,19 @@ def time_stepping(dt, T, A, L, u0, u1, p1, ufile, pfile, bcu, bcp):
         u0.assign(u1)
         t += dt
         time_step += 1
-        print_progress_bar(t/T)
+        print_progress_bar(t/(T+DOLFIN_EPS))
 
-return sample_time_arr, u1_arr, p1_arr
+    return sample_time_arr, u1_arr, p1_arr
 
 
 #Solve the reference problem an iterate eta for different values, calculate L2 error and plot solutions.
 
 # Set the reference problem
+print('Computing the reference solution...\n')
 a_ref, L_ref = set_variational_ref(u_ref, v_ref, p_ref, q_ref, u0_ref, u1_ref, p1_ref, f, Re, k)
 A_ref = assemble_matrices(a_ref[0], a_ref[1], a_ref[2])
 ufile_ref = File("results/results_vel_ref/velocity.pvd")
 pfile_ref = File("results/results_vel_ref/pressure.pvd")
-print('Computing the reference solution')
 sample_time_arr, u1_arr_ref, p1_arr_ref = time_stepping(dt, T, A_ref, L_ref, u0_ref, u1_ref, p1_ref, ufile_ref, pfile_ref, bcu_ref, bcp_ref)
 
 
@@ -269,6 +269,9 @@ for eta_brinkman in eta_values:
     ufile_penal = File("results/results_vel_{}/velocity.pvd".format(eta_brinkman))
     pfile_penal = File("results/results_vel_{}/pressure.pvd".format(eta_brinkman))
     
+    # Print message
+    print(f'Computing {count} cycle of {len(eta_values)} for eta = {eta_brinkman}...\n')
+
     # Set the penalized problem
     a_penal, L_penal = set_variational_penal(u_penal, v_penal, p_penal, q_penal, u0_penal, u1_penal, p1_penal, f, eta, chi, Re, k)
     A_penal = assemble_matrices(a_penal[0], a_penal[1], a_penal[2])
@@ -296,8 +299,6 @@ for eta_brinkman in eta_values:
             out_txt.write('%.2e\t' % error)
         out_txt.write('\n')
 
-    # Print message
-    print(f'Computed {count} cycle of {len(eta_values)} for eta = {eta_brinkman}')
     count += 1
 print(f'Data saved in {output_filename}')
     
