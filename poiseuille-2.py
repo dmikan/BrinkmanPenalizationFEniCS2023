@@ -195,10 +195,10 @@ def time_stepping(dt, T, A, L, u0, u1, p1, ufile, pfile, bcu, bcp):
     p1_arr = []
     sample_time_arr = []
     while t < T + DOLFIN_EPS:
-	with tqdm(total = T + DOLFIN_EPS) as pbar:
-		pbar.update()      
-        	# Compute tentative velocity step
-        	b1 = assemble(L[0])
+	    with tqdm(total = T + DOLFIN_EPS) as pbar:
+	        pbar.update()      
+            # Compute tentative velocity step
+            b1 = assemble(L[0])
         	[bc.apply(A[0], b1) for bc in bcu]
         	solve(A[0], u1.vector(), b1, "bicgstab", "default")
 
