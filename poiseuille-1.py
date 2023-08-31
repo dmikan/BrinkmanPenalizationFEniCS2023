@@ -2,7 +2,7 @@
 from dolfin import *
 import dolfin
 import numpy as np
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 # Print log messages only from the root process in parallel
 dolfin.parameters["std_out_all_processes"] = False;
@@ -11,33 +11,33 @@ dolfin.parameters["std_out_all_processes"] = False;
 
 # Define the reference mesh 
 mesh_ref = Mesh('mesh/mesh-square.xml')
-print("Plotting the reference mesh")
+print("Created the reference mesh")
 
 # Print number of elements an plot
 print(f"Elements: {mesh_ref.num_cells()}")
-fig_ref, ax_ref = plt.subplots(figsize=(12, 4))
-dolfin.plot(mesh_ref, title="Rectangle", axes = ax_ref)
-pdf_filename = "mesh_ref.pdf"
-fig_ref.savefig(pdf_filename, format='pdf')
+#fig_ref, ax_ref = plt.subplots(figsize=(12, 4))
+#dolfin.plot(mesh_ref, title="Rectangle", axes = ax_ref)
+#pdf_filename = "mesh_ref.pdf"
+#fig_ref.savefig(pdf_filename, format='pdf')
 
 # Print message
-print(f"Figure saved in {pdf_filename}")
+#print(f"Figure saved in {pdf_filename}")
 
 #Now we define a rectangular mesh with triangular elements. This mesh will be used as a domain for the Brinkman problem. 
 
 # Create mesh and define function space
 mesh_penal = dolfin.RectangleMesh(dolfin.Point(0.0, 0.0), dolfin.Point(4.0, 1.0), 320, 80, "right/left")
-print("Plotting the penalized mesh")
+print("Created the penalized mesh")
 
 # Print number of elements an plot
 print(f"Elements: {mesh_penal.num_cells()}" )
-fig_penal, ax_penal = plt.subplots(figsize=(12, 4))
-dolfin.plot(mesh_penal, title="Rectangle", axes = ax_penal)
-pdf_filename = "mesh_penal.pdf"
-fig_penal.savefig(pdf_filename, format='pdf')
+#fig_penal, ax_penal = plt.subplots(figsize=(12, 4))
+#dolfin.plot(mesh_penal, title="Rectangle", axes = ax_penal)
+#pdf_filename = "mesh_penal.pdf"
+#fig_penal.savefig(pdf_filename, format='pdf')
 
 # Print message
-print(f"Figure saved in {pdf_filename}")
+#print(f"Figure saved in {pdf_filename}")
 
 #Define the finite element spaces that we are going to use for the reference problem.
 # Define function spaces (P2-P1)
@@ -232,7 +232,7 @@ pfile_ref = File("results_vel_ref/pressure.pvd")
 sample_time_arr, u1_arr_ref, p1_arr_ref = time_stepping(dt, T, A_ref, L_ref, u0_ref, u1_ref, p1_ref, ufile_ref, pfile_ref, bcu_ref, bcp_ref)
 
 # Output filename
-output_filename = f"error_data.txt"
+output_filename = "error_data.txt"
 with open(output_filename, 'w') as out_txt:
     out_txt.write('\t\t')
     for sample in sample_time_arr:
@@ -240,6 +240,7 @@ with open(output_filename, 'w') as out_txt:
     out_txt.write('\n')
 
 eta_values = [1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6, 1e-7, 1e-8]
+count = 1
 for eta_brinkman in eta_values:
     u1_arr_penal_proj = []
     p1_arr_penal_proj = []
@@ -276,6 +277,10 @@ for eta_brinkman in eta_values:
         for error in error_L2_arr:
             out_txt.write('%.2e\t' % error)
         out_txt.write('\n')
+
+    # Print message
+    print(f'Computed {count} cycle of {len(eta_values)} for eta = {eta_brinkman}')
+    count += 1
 print(f'Data saved in {output_filename}')
     
     
