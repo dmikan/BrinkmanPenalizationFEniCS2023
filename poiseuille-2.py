@@ -2,7 +2,7 @@
 from dolfin import *
 import dolfin
 import numpy as np
-from tqdm import tqdm
+#from tqdm import tqdm
 #import matplotlib.pyplot as plt
 
 # Print log messages only from the root process in parallel
@@ -186,6 +186,16 @@ def assemble_matrices(a1, a2, a3):
 # Use amg preconditioner if available
 prec = "amg" if has_krylov_solver_preconditioner("amg") else "default"
 
+# Define progress bar
+def print_progress_bar(progress):
+    bar_width = 50
+    pos = int(bar_width * progress)
+    bar = '[' + '=' * pos + '>' + ' ' * (bar_width - pos) + ']'
+    percentage = int(progress * 100)
+    print(f"{bar} {percentage}%\r", end="")
+    if progress == 1.0:
+        print()
+
 #Time stepping for the reference solution and for the penalized solution:
 def time_stepping(dt, T, A, L, u0, u1, p1, ufile, pfile, bcu, bcp):
     # Time-stepping
@@ -194,39 +204,38 @@ def time_stepping(dt, T, A, L, u0, u1, p1, ufile, pfile, bcu, bcp):
     u1_arr = []
     p1_arr = []
     sample_time_arr = []
+
     while t < T + DOLFIN_EPS:
-        with tqdm(total=T + DOLFIN_EPS) as pbar:
-            pbar.update()      
-            
-            # Compute tentative velocity step
-            b1 = assemble(L[0])
-            [bc.apply(A[0], b1) for bc in bcu]
-            solve(A[0], u1.vector(), b1, "bicgstab", "default")
+        # Compute tentative velocity step
+        b1 = assemble(L[0])
+        [bc.apply(A[0], b1) for bc in bcu]
+        solve(A[0], u1.vector(), b1, "bicgstab", "default")
 
-            # Pressure correction
-            b2 = assemble(L[1])
-            [bc.apply(A[1], b2) for bc in bcp]
-            [bc.apply(p1.vector()) for bc in bcp]
-            solve(A[1], p1.vector(), b2, "bicgstab", prec)
+        # Pressure correction
+        b2 = assemble(L[1])
+        [bc.apply(A[1], b2) for bc in bcp]
+        [bc.apply(p1.vector()) for bc in bcp]
+        solve(A[1], p1.vector(), b2, "bicgstab", prec)
 
-            # Velocity correction
-            b3 = assemble(L[2])
-            [bc.apply(A[2], b3) for bc in bcu]
-            solve(A[2], u1.vector(), b3, "bicgstab", "default")
+        # Velocity correction
+        b3 = assemble(L[2])
+        [bc.apply(A[2], b3) for bc in bcu]
+        solve(A[2], u1.vector(), b3, "bicgstab", "default")
 
-            # Save to file
-            if time_step % 10 == 0:
-                ufile << u1
-                pfile << p1
-                u1_arr.append(u1)  
-                p1_arr.append(p1)
-                sample_time_arr.append(round(t, 3))
-                
-            u0.assign(u1)
-            t += dt
-            time_step += 1
-            
-    return sample_time_arr, u1_arr, p1_arr
+        # Save to file
+        if time_step % 10 == 0:
+            ufile << u1
+            pfile << p1
+            u1_arr.append(u1)  
+            p1_arr.append(p1)
+            sample_time_arr.append(round(t, 3))
+
+        u0.assign(u1)
+        t += dt
+        time_step += 1
+        print_progress_bar(t/T)
+
+return sample_time_arr, u1_arr, p1_arr
 
 
 #Solve the reference problem an iterate eta for different values, calculate L2 error and plot solutions.
