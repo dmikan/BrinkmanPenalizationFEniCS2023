@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!DOCTYPE Xdmf SYSTEM "Xdmf.dtd" []>
+<Xdmf Version="3.0" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <Domain>
+    <Grid Name="TimeSeries_f_60" GridType="Collection" CollectionType="Temporal">
+      <Grid Name="mesh" GridType="Uniform">
+        <Topology NumberOfElements="51200" TopologyType="Triangle" NodesPerElement="3">
+          <DataItem Dimensions="51200 3" NumberType="UInt" Format="HDF">vorticity.h5:/Mesh/0/mesh/topology</DataItem>
+        </Topology>
+        <Geometry GeometryType="XY">
+          <DataItem Dimensions="26001 2" Format="HDF">vorticity.h5:/Mesh/0/mesh/geometry</DataItem>
+        </Geometry>
+        <Time Value="0" />
+        <Attribute Name="f_60" AttributeType="Scalar" Center="Node">
+          <DataItem Dimensions="26001 1" Format="HDF">vorticity.h5:/VisualisationVector/0</DataItem>
+        </Attribute>
+      </Grid>
+      <Grid Name="mesh" GridType="Uniform">
+        <Topology NumberOfElements="51200" TopologyType="Triangle" NodesPerElement="3">
+          <DataItem Dimensions="51200 3" NumberType="UInt" Format="HDF">vorticity.h5:/Mesh/1/mesh/topology</DataItem>
+        </Topology>
+        <Geometry GeometryType="XY">
+          <DataItem Dimensions="26001 2" Format="HDF">vorticity.h5:/Mesh/1/mesh/geometry</DataItem>
+        </Geometry>
+        <Time Value="1" />
+        <Attribute Name="f_60" AttributeType="Scalar" Center="Node">
+          <DataItem Dimensions="26001 1" Format="HDF">vorticity.h5:/VisualisationVector/1</DataItem>
+        </Attribute>
+      </Grid>
+      <Grid Name="mesh" GridType="Uniform">
+        <Topology NumberOfElements="51200" TopologyType="Triangle" NodesPerElement="3">
+          <DataItem Dimensions="51200 3" NumberType="UInt" Format="HDF">vorticity.h5:/Mesh/2/mesh/topology</DataItem>
+        </Topology>
+        <Geometry GeometryType="XY">
+          <DataItem Dimensions="26001 2" Format="HDF">vorticity.h5:/Mesh/2/mesh/geometry</DataItem>
+        </Geometry>
+        <Time Value="2" />
+        <Attribute Name="f_60" AttributeType="Scalar" Center="Node">
+          <DataItem Dimensions="26001 1" Format="HDF">vorticity.h5:/VisualisationVector/2</DataItem>
+        </Attribute>
+      </Grid>
+      <Grid Name="mesh" GridType="Uniform">
+        <Topology NumberOfElements="51200" TopologyType="Triangle" NodesPerElement="3">
+          <DataItem Dimensions="51200 3" NumberType="UInt" Format="HDF">vorticity.h5:/Mesh/3/mesh/topology</DataItem>
+        </Topology>
+        <Geometry GeometryType="XY">
+          <DataItem Dimensions="26001 2" Format="HDF">vorticity.h5:/Mesh/3/mesh/geometry</DataItem>
+        </Geometry>
+        <Time Value="3" />
+        <Attribute Name="f_60" AttributeType="Scalar" Center="Node">
+          <DataItem Dimensions="26001 1" Format="HDF">vorticity.h5:/VisualisationVector/3</DataItem>
+        </Attribute>
+      </Grid>
+    </Grid>
+  </Domain>
+</Xdmf>
