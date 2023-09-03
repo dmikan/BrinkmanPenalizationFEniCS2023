@@ -293,7 +293,7 @@ for eta_brinkman in eta_values:
         error_L2_arr.append(error_L2)   
     
     # Save the values in error_data.txt
-    with open(output_filenamet_filename, 'a') as out_txt:
+    with open(output_filename, 'a') as out_txt:
         out_txt.write('%.0e\t' % eta_brinkman)
         for error in error_L2_arr:
             out_txt.write('%.2e\t' % error)
