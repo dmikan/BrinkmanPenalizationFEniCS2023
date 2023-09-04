@@ -68,8 +68,8 @@ q_penal = dolfin.TestFunction(Q_penal)
 
 # Set the time parameters
 dt = 0.001
-FINAL_TIME = 0.030
-TIME_MULT = 10 
+FINAL_TIME = 10.000
+TIME_MULT = 1 
 
 # Set the fluid parameters 
 U0 = 1
@@ -303,14 +303,14 @@ A_ref = assemble_matrices(a_ref[0], a_ref[1], a_ref[2])
 u1_arr_ref = time_stepping(A_ref, L_ref, u0_ref, u1_ref, p1_ref, w1_ref, bcu_ref, bcp_ref)
 
 # Output filename
-output_filename = "results/error_data.txt"
+output_filename = "results/error_data_dt.txt"
 with open(output_filename, 'w') as out_txt:
     out_txt.write('eta\t')
     out_txt.write('EL2TOF\t')
     out_txt.write('NL2TOS\t')
     out_txt.write('\n')
 
-eta_values = [1e-2, 1e-8]
+eta_values = [1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6, 1e-7, 1e-8]
 count = 1
 for eta_brinkman in eta_values:
     
