@@ -316,6 +316,8 @@ with open(output_filename, 'w') as out_txt:
     out_txt.write('FINITE ELEMENT PARAMETERS:\n')
     out_txt.write('ELEMENTS OF REFERENCE MESH = {}\n'.format(mesh_ref.num_cells()))
     out_txt.write('ELEMENTS OF PENALIZED MESH = {}\n'.format(mesh_penal.num_cells()))
+    out_txt.write('H_MIN AND H_MAX OF REFERENCE MESH = %.2e, %.2e\n' % (mesh_ref.hmin(), mesh_ref.hmax()))
+    out_txt.write('H_MIN AND H_MAX OF PENALIZED MESH = %.2e, %.2e\n' % (mesh_penal.hmin(), mesh_penal.hmax()))
     out_txt.write('VELOCITY FINITE ELEMENT SPACE = {}, {}\n'.format(V_ref.ufl_element().family(), V_ref.ufl_element().degree()))
     out_txt.write('PRESSURE FINITE ELEMENT SPACE = {}, {}\n'.format(Q_ref.ufl_element().family(), Q_ref.ufl_element().degree()))
     out_txt.write('--------------------------------------------------------\n\n')
