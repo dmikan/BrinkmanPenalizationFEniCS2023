@@ -68,7 +68,7 @@ q_penal = dolfin.TestFunction(Q_penal)
 
 # Set the time parameters
 dt = 0.001
-FINAL_TIME = 0.030
+FINAL_TIME = 50.000
 TIME_MULT = 1 
 
 # Set the fluid parameters 
@@ -169,7 +169,7 @@ def set_variational_ref(u, v, p, q, u0, u1, p1, f, Re, k):
     # Tentative velocity step
     F1 = (1/k)*inner(u - u0, v)*dx \
        +  inner(grad(u0)*u0, v)*dx \
-       + (1/Re)*inner(grad(u), grad(v))*dx \
+       + nu*inner(grad(u), grad(v))*dx \
        - inner(f, v)*dx
     a1 = lhs(F1)
     L1 = rhs(F1)
@@ -191,7 +191,7 @@ def set_variational_ref(u, v, p, q, u0, u1, p1, f, Re, k):
 def set_variational_penal(u, v, p, q, u0, u1, p1, f, eta, chi, Re, k):
     # Tentative velocity step
     F1 = (1/k)*inner(u - u0, v)*dx + inner(grad(u0)*u0, v)*dx + \
-         (1/Re)*inner(grad(u), grad(v))*dx + (chi/eta)*inner(u, v)*dx - inner(f, v)*dx
+         nu*inner(grad(u), grad(v))*dx + (chi/eta)*inner(u, v)*dx - inner(f, v)*dx
     a1 = lhs(F1)
     L1 = rhs(F1)
 
