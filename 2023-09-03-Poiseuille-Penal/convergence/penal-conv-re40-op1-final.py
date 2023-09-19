@@ -68,7 +68,7 @@ q_penal = dolfin.TestFunction(Q_penal)
 
 # Set the time parameters
 dt = 0.001
-FINAL_TIME = 50.000
+FINAL_TIME = 1.000
 TIME_MULT = 1 
 
 # Set the fluid parameters 
