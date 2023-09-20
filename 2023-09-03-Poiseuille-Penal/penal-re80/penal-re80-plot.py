@@ -95,8 +95,7 @@ bcu_noslip_bottom_wall_ref = dolfin.DirichletBC(V_ref, dolfin.Constant((0, 0)), 
 bcu_noslip_hole_ref = DirichletBC(V_ref, dolfin.Constant((0, 0)), "on_boundary && std::abs(x[0] - 0.5) <= 0.15 + DOLFIN_EPS && std::abs(x[1] - 0.5) <= 0.15 + DOLFIN_EPS")
 
 # Inflow boundary condition for velocity
-inlet_expression  = dolfin.Expression((0, 0), degree = 2)
-bcu_inflow_ref = dolfin.DirichletBC(V_ref, inlet_expression, "x[0] <  DOLFIN_EPS")
+bcu_inflow_ref = dolfin.DirichletBC(V_ref, dolfin.Constant((0, 0)), "x[0] <  DOLFIN_EPS")
 
 # Outflow boundary condition for pressure
 bcp_outflow_ref = dolfin.DirichletBC(Q_ref, dolfin.Constant(0), "x[0] > 4.0 - DOLFIN_EPS")
@@ -112,8 +111,7 @@ bcu_noslip_top_wall_penal = dolfin.DirichletBC(V_penal, dolfin.Constant((0, 0)),
 bcu_noslip_bottom_wall_penal = dolfin.DirichletBC(V_penal, dolfin.Constant((0, 0)), "on_boundary && x[1] <  DOLFIN_EPS")
 
 # Inflow boundary condition for velocity
-inlet_expression  = dolfin.Expression((0, 0), degree = 2)
-bcu_inflow_penal = dolfin.DirichletBC(V_penal, inlet_expression, "x[0] <  DOLFIN_EPS")
+bcu_inflow_penal = dolfin.DirichletBC(V_penal, dolfin.Constant((0, 0)), "x[0] <  DOLFIN_EPS")
 
 # Outflow boundary condition for pressure
 bcp_outflow_penal = dolfin.DirichletBC(Q_penal, dolfin.Constant(0), "x[0] > 4.0 - DOLFIN_EPS")
@@ -123,7 +121,7 @@ bcu_penal = [bcu_inflow_penal, bcu_noslip_top_wall_penal, bcu_noslip_bottom_wall
 bcp_penal = [bcp_outflow_penal]
 
 ## Define bcu inflow time dependent function
-def bcu_inflow(t, V)
+def bcu_inflow(t, V):
     funcstring_x = f'4.0*x[1]*(1 - x[1])*std::sin(3.14159*{t}/8.0)'
     inlet_expression = dolfin.Expression((funcstring_x, 0), degree = 2)
     bcu_inflow = dolfin.DirichletBC(V, inlet_expression, "x[0] <  DOLFIN_EPS")
