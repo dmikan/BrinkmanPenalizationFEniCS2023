@@ -68,15 +68,15 @@ q_penal = dolfin.TestFunction(Q_penal)
 
 # Set the time parameters
 dt = 0.001
-FINAL_TIME = 8.000
-TIME_MULT = 100 
+FINAL_TIME = 0.100
+TIME_MULT = 10 
 
 # Set the fluid parameters 
 U0 = 1
 SQUARE_SIDE_HALF_LENGTH = 0.15
 SQUARE_CENTRE_X = 0.5
 SQUARE_CENTRE_Y = 0.5
-Re = 80
+Re = 40
 nu = U0 * (2 * SQUARE_SIDE_HALF_LENGTH) / Re
 
 # print the viscocity

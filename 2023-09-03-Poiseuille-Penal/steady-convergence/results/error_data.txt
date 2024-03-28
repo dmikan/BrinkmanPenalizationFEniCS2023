@@ -1,0 +1,32 @@
+--------------------------------------------------------
+
+PARAMETER OF SIMULATION:
+REYNOLDS NUMBER = 80
+L2 NORM IN OMEGA F OF THE REFERENCE VELOCITY = 1.15e+00
+--------------------------------------------------------
+
+FINITE ELEMENT PARAMETERS:
+ELEMENTS OF REFERENCE MESH = 88608
+ELEMENTS OF PENALIZED MESH = 111916
+H_MIN AND H_MAX OF REFERENCE MESH = 3.98e-04, 1.26e-02
+H_MIN AND H_MAX OF PENALIZED MESH = 3.74e-04, 1.26e-02
+VELOCITY FINITE ELEMENT SPACE = Lagrange, 2
+PRESSURE FINITE ELEMENT SPACE = Lagrange, 1
+--------------------------------------------------------
+
+GLOSARY:
+ETA = PENALIZATION PARAMETER
+L2NOS = L2 NORM IN OMEGA_S
+L2EOF = L2 ERROR IN OMEGA_F
+L2EOF-REL = RELATIVE L2 ERROR IN OMEGA_F 
+--------------------------------------------------------
+
+ETA		L2NOS		L2EOF		L2EOF-REL
+1e-01	1.26e-01	2.65e-01	2.30e-01	
+1e-02	2.93e-02	9.03e-02	7.85e-02	
+1e-03	4.92e-03	1.98e-02	1.72e-02	
+1e-04	7.81e-04	6.42e-03	5.58e-03	
+1e-05	1.36e-04	2.11e-03	1.84e-03	
+1e-06	3.13e-05	6.20e-04	5.39e-04	
+1e-07	1.18e-05	2.31e-04	2.01e-04	
+1e-08	9.32e-06	2.10e-04	1.82e-04	

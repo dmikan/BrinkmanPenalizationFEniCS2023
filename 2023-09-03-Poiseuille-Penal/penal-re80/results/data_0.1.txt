@@ -1,0 +1,18 @@
+--------------------------------------------------------
+
+PARAMETER OF SIMULATION:
+STEP TIME = 0.001
+FINAL TIME = 0.1
+REYNOLDS NUMBER = 40
+VELOCITY = 1
+--------------------------------------------------------
+
+FINITE ELEMENT PARAMETERS:
+ELEMENTS OF REFERENCE MESH = 105360
+ELEMENTS OF PENALIZED MESH = 113576
+H_MIN AND H_MAX OF REFERENCE MESH = 8.37e-04, 1.29e-02
+H_MIN AND H_MAX OF PENALIZED MESH = 7.59e-04, 1.83e-02
+VELOCITY FINITE ELEMENT SPACE = Lagrange, 2
+PRESSURE FINITE ELEMENT SPACE = Lagrange, 1
+--------------------------------------------------------
+
